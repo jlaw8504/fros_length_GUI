@@ -155,7 +155,7 @@ wdir = pwd;
 
 %select the file
 [filename pathname] = uigetfile('*.tif', 'Choose the GFP image stack');
-%read in the file using tif3Dread.m
+%read in the file using bioformats plugin
 im_cell = bfopen(strcat(pathname,filename));
 %convert im_cell to im_mat
 im_mat = bf2mat(im_cell);
@@ -185,7 +185,8 @@ set(handles.stack_text,'String',strcat(num2str(current_stack),...
 
 %open the RFP stack in axes3
 [filename pathname] = uigetfile('*.tif', 'Choose the RFP image stack');
-im_mat_2 = tif3Dread(strcat(pathname,filename));
+im_cell_2 = bfopen(strcat(pathname,filename));
+im_mat_2 = bf2mat(im_cell_2);
 im_mat_2 = double(im_mat_2);
 handles.im_mat_2 = im_mat_2;
 subplot(handles.axes3);
